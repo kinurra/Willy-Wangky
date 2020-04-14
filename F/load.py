@@ -42,3 +42,4 @@ def load ():
     refund = set_var (refund)
     kritiksaran = set_var (kritiksaran)
     kehilangan = set_var (kehilangan)
+    print('File perusahaan Willy Wangky’s Chocolate Factory telah di-load.')

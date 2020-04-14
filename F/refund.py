@@ -14,6 +14,7 @@ def refund_tiket (username):
     # (sebesar (harga tiket - 2000)/tiket) jika masukan sesuai dengan data,
     # jika tidak sesuai akan mencetak pesan kesalahan
     ID = input('Masukkan ID wahana : ')
+    tanggal = input('Masukkan tanggal refund : ')
     jumlah = input('Jumlah tiket yang di-refund : ')
     indeks = cari_elemen2 (tiket,0,username,1,ID)
     if tiket[indeks] != ['End'] :
