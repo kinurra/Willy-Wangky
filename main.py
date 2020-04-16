@@ -87,7 +87,6 @@ def tambah_arr (arr_utama, arr_tambahan):
     hasil=[]
     i=0
     while arr_utama[i] != ['End']:
-        arr_utama[i]=[arr_utama[i]]
         hasil+=arr_utama[i]
         i+=1
     hasil = hasil + arr_tambahan + [['End']]
