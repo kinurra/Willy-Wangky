@@ -12,14 +12,12 @@ def cari_elemen2 (array, indeks1, keyword1, indeks2, keyword2) :
 def tambah_arr (arr_utama, arr_tambahan):
     # Fungsi yang akan mereturn gabungan dua array dengan arr_tambahan di akhir arr_utama
     # dapat digunakan di fungsi lain juga, Mark tetap berada di akhir array
-    hasil=[]
     i=0
     while arr_utama[i] != ['End']:
-        hasil+=arr_utama[i]
         i+=1
-    hasil = hasil + arr_tambahan + [['End']]
-    return hasil        
-def refund_tiket (username, file):
+    arr_utama[i] = arr_tambahan
+    arr_utama[i+1] = ['End']      
+def refund_tiket (username):
     # Prosedur refund mengurangi jumlah tiket dimiliki pemain dan akan menambah saldo
     # (sebesar (harga tiket - 2000)/tiket) jika masukan sesuai dengan data,
     # jika tidak sesuai akan mencetak pesan kesalahan
@@ -27,17 +25,16 @@ def refund_tiket (username, file):
     tanggal = input('Masukkan tanggal refund : ')
     jumlah = input('Jumlah tiket yang di-refund : ')
     indeks = cari_elemen2 (tiket,0,username,1,ID)
-    arr = [[username, tanggal, ID, jumlah]]
-    if tiket[indeks] != ['End'] :
+    arr = [username, tanggal, ID, jumlah]
+    if tiket[indeks] != ['End'] : # Data ditemukan
         if int(tiket[indeks][2])>int(jumlah) :
             print('Uang refund sudah kami berikan pada akun anda')
-            file = tambah_arr (file, arr)
+            tambah_arr(refund,arr)
             indeks_s = cari_elemen (user,3,username)
             indeks_w = cari_elemen (wahana,0,ID)
             user[indeks_s][6]=str(int(user[indeks_s][6])+int(jumlah)*(int(wahana[indeks_w][2])-2000))
             tiket[indeks][2]=str(int(tiket[indeks][2])-int(jumlah))
-        else :
+        else : # Data tidak sesuai
             print('Jumlah tiket yang di-refund melebihi kepunyaan Anda')
-    else :
+    else : # Data tidak ditemukan
         print('Anda tidak memiliki tiket terkait')
-    return file

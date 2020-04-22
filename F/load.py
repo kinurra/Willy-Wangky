@@ -1,21 +1,23 @@
 # F01-Load file
 # Fungsi yang dijalankan pertama kali untuk membuat variabel dari data file csv yang dimasukan
 # inisialisasi variabel
-user = []
-wahana = []
-pembelian = []
-penggunaan = []
-tiket = []
-refund = []
-kritiksaran = []
-kehilangan = []
+user = [''for i in range (1000)]
+wahana = [''for i in range (1000)]
+pembelian = [''for i in range (1000)]
+penggunaan = [''for i in range (1000)]
+tiket = [''for i in range (1000)]
+refund = [''for i in range (1000)]
+kritiksaran = [''for i in range (1000)]
+kehilangan = [''for i in range (1000)]
 def set_var (file, array):
-    # Prosedur untuk menambahkan tiap baris di file csv ke dalam array dengan satu baris
+    # Prosedur untuk mengassign tiap baris di file csv ke dalam array dengan satu baris
     # merupakan satu tipe bentukan
     o = open(file, 'r')
     r = csv.reader(o)
-    for row in r  :
-        array += [row]
+    i = 0
+    for row in r: # membaca setiap list satu persatu
+        array[i] = row
+        i += 1
 def load ():
     # Prosedur load meminta masukan directory file kemudian akan mengeset variabel agar
     # menjadi array berisi tipe bentukan sesuai dengan file

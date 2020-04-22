@@ -3,21 +3,23 @@ import csv
 # F01-Load file
 # Fungsi yang dijalankan pertama kali untuk membuat variabel dari data file csv yang dimasukan
 # inisialisasi variabel
-user = []
-wahana = []
-pembelian = []
-penggunaan = []
-tiket = []
-refund = []
-kritiksaran = []
-kehilangan = []
+user = [''for i in range (1000)]
+wahana = [''for i in range (1000)]
+pembelian = [''for i in range (1000)]
+penggunaan = [''for i in range (1000)]
+tiket = [''for i in range (1000)]
+refund = [''for i in range (1000)]
+kritiksaran = [''for i in range (1000)]
+kehilangan = [''for i in range (1000)]
 def set_var (file, array):
-    # Prosedur untuk menambahkan tiap baris di file csv ke dalam array dengan satu baris
+    # Prosedur untuk mengassign tiap baris di file csv ke dalam array dengan satu baris
     # merupakan satu tipe bentukan
     o = open(file, 'r')
     r = csv.reader(o)
-    for row in r  :
-        array += [row]
+    i = 0
+    for row in r: # membaca setiap list satu persatu
+        array[i] = row
+        i += 1
 def load ():
     # Prosedur load meminta masukan directory file kemudian akan mengeset variabel agar
     # menjadi array berisi tipe bentukan sesuai dengan file
@@ -43,7 +45,7 @@ def load ():
 # Fungsi yang bisa dijalankan admin untuk mencari data diri pemain
 def cari_elemen (array, indeks, keyword):
     # Fungsi yang akan mereturn indeks (dalam hal ini baris) suatu array yang sesuai dengan kriteria
-    # memilik isi di indeks (baris dan kolom) tertentu sama dengan keyword yang diberikan
+    # memiliki isi di indeks (baris dan kolom) tertentu sama dengan keyword yang diberikan
     # dapat digunakan di fungsi lain juga
     i=0
     while array[i] != ['End']:
@@ -56,11 +58,11 @@ def cari_pemain ():
     # jika tidak akan mencetak pesan tidak ada data
     Username = input('Masukkan username : ')
     indeks = cari_elemen (user,3,Username)
-    if user[indeks] == ['End'] :
+    if user[indeks] == ['End'] : # jika mark berarti tidak ditemukan
         print('Data pemain tidak ada')
     else :
         print('Nama Pemain : ', user[indeks][0])
-        print('Tinggi Pemain : ', user[indeks][3])
+        print('Tinggi Pemain : ', user[indeks][2],'cm')
         print('Tanggal Lahir Pemain : ', user[indeks][1])
 
 # F09-Refund
@@ -77,14 +79,12 @@ def cari_elemen2 (array, indeks1, keyword1, indeks2, keyword2) :
 def tambah_arr (arr_utama, arr_tambahan):
     # Fungsi yang akan mereturn gabungan dua array dengan arr_tambahan di akhir arr_utama
     # dapat digunakan di fungsi lain juga, Mark tetap berada di akhir array
-    hasil=[]
     i=0
     while arr_utama[i] != ['End']:
-        hasil+=arr_utama[i]
         i+=1
-    hasil = hasil + arr_tambahan + [['End']]
-    return hasil        
-def refund_tiket (username, file):
+    arr_utama[i] = arr_tambahan
+    arr_utama[i+1] = ['End']      
+def refund_tiket (username):
     # Prosedur refund mengurangi jumlah tiket dimiliki pemain dan akan menambah saldo
     # (sebesar (harga tiket - 2000)/tiket) jika masukan sesuai dengan data,
     # jika tidak sesuai akan mencetak pesan kesalahan
@@ -92,20 +92,19 @@ def refund_tiket (username, file):
     tanggal = input('Masukkan tanggal refund : ')
     jumlah = input('Jumlah tiket yang di-refund : ')
     indeks = cari_elemen2 (tiket,0,username,1,ID)
-    arr = [[username, tanggal, ID, jumlah]]
-    if tiket[indeks] != ['End'] :
+    arr = [username, tanggal, ID, jumlah]
+    if tiket[indeks] != ['End'] : # Data ditemukan
         if int(tiket[indeks][2])>int(jumlah) :
             print('Uang refund sudah kami berikan pada akun anda')
-            file = tambah_arr (file, arr)
+            tambah_arr(refund,arr)
             indeks_s = cari_elemen (user,3,username)
             indeks_w = cari_elemen (wahana,0,ID)
             user[indeks_s][6]=str(int(user[indeks_s][6])+int(jumlah)*(int(wahana[indeks_w][2])-2000))
             tiket[indeks][2]=str(int(tiket[indeks][2])-int(jumlah))
-        else :
+        else : # Data tidak sesuai
             print('Jumlah tiket yang di-refund melebihi kepunyaan Anda')
-    else :
+    else : # Data tidak ditemukan
         print('Anda tidak memiliki tiket terkait')
-    return file
         
 # F13-Top UP Saldo
 # Fungsi yang dapat dijalankan admin untuk menambah saldo pemain
@@ -120,7 +119,7 @@ def topup() :
 
 # B04-Laporan Kehilangan Tiket
 # Fungsi yang akan mencatat data kehilangan tiket seorang pemain yang dilaporkan (masukan pengguna)
-def tiket_hilang (file):
+def tiket_hilang ():
     # Fungsi yang akan mereturn array yang telah ditambah data kehilangan masukan pengguna
     # data kehilangan juga akan mengurangi jumlah tiket yang dimiliki pemain
     # asumsi masukan valid
@@ -130,9 +129,8 @@ def tiket_hilang (file):
     jumlah = input('Jumlah tiket yang dihilangkan : ')
     indeks = cari_elemen (tiket,0,username)
     tiket[indeks][2]=str(int(tiket[indeks][2])-int(jumlah))
-    array = [[tanggal, ID, username, jumlah]]
-    file = tambah_arr (file, array)
+    array = [tanggal, ID, username, jumlah]
+    tambah_arr (kehilangan, array)
     print('Laporan kehilangan tiket Anda telah direkam')
-    return file
 
 load()
