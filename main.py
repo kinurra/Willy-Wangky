@@ -17,7 +17,7 @@ def set_var (file, array):
     o = open(file, 'r')
     r = csv.reader(o)
     i = 0
-    for row in r: # membaca setiap list satu persatu
+    for row in r: # membaca setiap list tipe bentukan (baris di file csv) satu persatu
         array[i] = row
         i += 1
 def load ():
@@ -120,7 +120,7 @@ def topup() :
 # B04-Laporan Kehilangan Tiket
 # Fungsi yang akan mencatat data kehilangan tiket seorang pemain yang dilaporkan (masukan pengguna)
 def tiket_hilang ():
-    # Fungsi yang akan mereturn array yang telah ditambah data kehilangan masukan pengguna
+    # Prosedur yang akan mengubah array kehilangan yang telah ditambah data kehilangan masukan pengguna
     # data kehilangan juga akan mengurangi jumlah tiket yang dimiliki pemain
     # asumsi masukan valid
     username = input('Masukkan username : ')
