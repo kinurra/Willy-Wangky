@@ -74,13 +74,13 @@ def login_user ():
 
 # F03
 def simpan(file,array):
-    o = open(file,'w')
-    writer = csv.writer(o)
+    o = open(file,'w',newline='')
+    writer = csv.writer(o,delimiter=',')
     i=0
     while array[i] != ['End']:
         writer.writerow(array[i])
         i+=1
-        writer = csv.writer(o)
+        writer = csv.writer(o,delimiter=',')
     writer.writerow(['End'])
 def save_file():
      user_f = input("Masukkan nama File User: ")
@@ -282,7 +282,7 @@ def pembelianTiket(username):
     ID_Wahana=input("Masukkan ID wahana: ")
     Tanggal_Pembelian=input("Masukkan tanggal hari ini: ")
     Jumlah_Tiket=input("Jumlah tiket yang dibeli: ")
-    if(Syarat_Tinggi(username,ID_Wahana)): # Syarat tinggi dan syarat umur terpenuhi
+    if(Syarat_Tinggi(username,ID_Wahana) and Syarat_Umur(username,ID_Wahana)): # Syarat tinggi dan syarat umur terpenuhi
         if(Syarat_Saldo(username,ID_Wahana)): # Syarat saldo
             array = [username,Tanggal_Pembelian,ID_Wahana,  Jumlah_Tiket]
             tambah_arr(pembelian, array)
@@ -401,9 +401,9 @@ def lihatKritik():
         kritiksaran[i]=Temp
 
     indeks=0
-    while kritiksaran[i] != ['End']:  # Menghitung total jumlah kolom
-        indeks += 1
+    while (kritiksaran[indeks] != ['End']):  # Menghitung total jumlah kolom
         print(kritiksaran[indeks][2], "|" ,kritiksaran[indeks][1], "|" , kritiksaran[indeks][0], "|" , kritiksaran[indeks][3])
+        indeks += 1
 
 # F12
 def tambah_wahana():
@@ -451,7 +451,8 @@ def jumlahTiket():
     indeks=0
     while(tiket[indeks] != ['End']):
         if(tiket[indeks][0]==Username):
-            print(tiket[indeks][2], "|" ,Nama_Wahana, "|" ,tiket[indeks][3])
+            indeks_w = cari_elemen(wahana,0,tiket[indeks][1])
+            print(tiket[indeks][1], "|" ,wahana[indeks_w][1], "|" ,tiket[indeks][2])
         indeks +=1
 
 # F16
