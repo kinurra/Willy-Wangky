@@ -627,6 +627,10 @@ def Golden_Account():
     user[indeks][6]=str(int(user[indeks][6])-150000)
     print('Akun anda telah diupgrade.')
 
+# B03
+def best_wahana():
+     pass
+
 # B04-Laporan Kehilangan Tiket
 # Fungsi yang akan mencatat data kehilangan tiket seorang pemain yang dilaporkan (masukan pengguna)
 def tiket_hilang ():
@@ -689,7 +693,7 @@ while True:
             elif perintah == 'upgrade_gold':
                 Golden_Account()
             elif perintah == 'best_wahana':
-                print('belum')
+                best_wahana()
             elif perintah == 'lihat_perintah':
                 lihat_perintah(username)
             elif perintah == 'exit':
@@ -714,7 +718,7 @@ while True:
             elif perintah == 'tiket_hilang':
                 tiket_hilang()
             elif perintah == 'best_wahana':
-                print('belum')
+                best_wahana()
             elif perintah == 'save':
                 save_file()
             elif perintah == 'lihat_perintah':
